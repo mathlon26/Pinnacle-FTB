@@ -13,7 +13,7 @@ loadObj = Load()
 
 def load_app():
     os.system('cls')
-    rapport = Logger().create_rapport(level=2, kind=5, msg="Starting application...", color="GREEN")
+    rapport = Logger().create_rapport(level=3, kind=6, msg="Starting application...", color="GREEN")
     rapport = Logger().format_rapport(rapport=rapport)[9:-1]
     while loadObj.loading:
         for i in ["-", "\\", "|", "/", "-","\\", "|", "/"]:
@@ -38,7 +38,8 @@ class Logger():
             "git": self.cmd_git,
             "info": self.cmd_info,
             "bot": self.cmd_bot,
-            "trade": self.cmd_trade
+            "trade": self.cmd_trade,
+            "restart": self.cmd_restart
         }
     def input_handler(self):
         os.system('cls')
@@ -130,7 +131,7 @@ class Logger():
             os.system('cls')
             print('\033[F', end='')
             print(f'\033[97m{rapport}')
-            print("\033[95mCommand:>\033[97m ", end='', flush=True)
+            #print("\033[95mCommand:>\033[97m ", end='', flush=True)
         
         return
             
@@ -141,13 +142,13 @@ class Logger():
             if main_command in self.commands:
                 self.commands[main_command](command_parts[1:])
             else:
-                rapport = self.create_rapport(level=6, kind=1, msg=f"Unknown command: {main_command}", color="RED")
+                rapport = self.create_rapport(level=6, kind=6, msg=f"Unknown command: {main_command}", color="RED")
                 self._print(rapport=rapport)
                         
     def cmd_quit(self, args):
         if not args or args[0] == "--console":
             eel.stop_all()
-            rapport = self.create_rapport(level=2, kind=5, msg="Exiting application...", color="RED")
+            rapport = self.create_rapport(level=3, kind=6, msg="Exiting application...", color="RED")
             self._print(rapport=rapport, clear_first=True)
             quit()
         else:
@@ -158,38 +159,60 @@ class Logger():
         # Implement the functionality for the "js" command
         # You can use args to handle any additional parameters for this command
         # Example:
-        rapport = self.create_rapport(level=1, kind=0, msg="Executing JS console command", color="BLUE")
+        rapport = self.create_rapport(level=6, kind=0, msg="Executing JS console command", color="BLUE")
         self._print(rapport=rapport)
 
     def cmd_help(self, args):
         # Implement the functionality for the "help" command
-        # Example:
-        rapport = self.create_rapport(level=1, kind=6, msg="Displaying help information", color="CYAN")
+        # This example lists all available commands and their descriptions
+        help_text = """
+        Available Commands:
+        - quit [--console]: Quit the application or console.
+        - js: Execute JS console command.
+        - help: Display help information.
+        - git: Get information about the GitHub repository.
+        - info: Display version, author, and project information.
+        - bot: Manage bot commands.
+        - trade: Execute trade command.
+        """
+        rapport = self.create_rapport(level=2, kind=6, msg=help_text, color="CYAN")
         self._print(rapport=rapport)
 
     def cmd_git(self, args):
         # Implement the functionality for the "git" command
-        # Example:
-        rapport = self.create_rapport(level=1, kind=4, msg="Executing git command", color="GREEN")
+        # Provide information about the GitHub repository
+        git_info = f"\nGitHub Repository: https://github.com/mathlon26/Pinnacle-FTB\n\033]8;;https://github.com/mathlon26/Pinnacle-FTB\033\\Click here to visit the GitHub page\033]8;;\033\\"
+        rapport = self.create_rapport(level=2, kind=6, msg=git_info, color="GREEN")
         self._print(rapport=rapport)
 
     def cmd_info(self, args):
         # Implement the functionality for the "info" command
-        # Example:
-        rapport = self.create_rapport(level=1, kind=6, msg="Displaying information", color="YELLOW")
+        # Display version, author, and project information
+        version_info = "\nVersion: 1.0"
+        author_info = "Author: mathlon26"
+        project_info = "Project: Pinnacle-FTB"
+        rapport = self.create_rapport(level=2, kind=6, msg=f"{version_info}\n{author_info}\n{project_info}", color="YELLOW")
         self._print(rapport=rapport)
 
     def cmd_bot(self, args):
         # Implement the functionality for the "bot" command
         # Example:
-        rapport = self.create_rapport(level=1, kind=6, msg="Managing bot commands", color="MAGENTA")
+        rapport = self.create_rapport(level=6, kind=6, msg="Managing bot commands", color="MAGENTA")
         self._print(rapport=rapport)
 
     def cmd_trade(self, args):
         # Implement the functionality for the "trade" command
         # Example:
-        rapport = self.create_rapport(level=1, kind=3, msg="Executing trade command", color="WHITE")
+        rapport = self.create_rapport(level=6, kind=6, msg="Executing trade command", color="WHITE")
         self._print(rapport=rapport)
+        
+    def cmd_restart(self, args):
+        # Implement the functionality for the "restart" command
+        rapport = self.create_rapport(level=2, kind=6, msg="Restarting application...", color="YELLOW")
+        self._print(rapport=rapport, clear_first=True)
+        
+        os.system(".\\restart_script.bat")
+        self.cmd_quit(None)
                 
         
 @eel.expose
@@ -201,7 +224,7 @@ def get_config():
 def all_loaded():
     loadObj.loading = False
     time.sleep(1)
-    Logger()._print(rapport=Logger().create_rapport(level=4, kind=6, msg="Loading complete", color="GREEN"))
+    Logger()._print(rapport=Logger().create_rapport(level=2, kind=0, msg="Loading complete", color="GREEN"))
     return bool(True) 
 
 
