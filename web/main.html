@@ -403,37 +403,21 @@
                                     <div class="card-body">
                                         <!-- Make the table horizontally scrollable -->
                                         <div class="table-responsive" id="openPositionsTableContainer">
-                                            <table class="table table-bordered">
+                                            <table class="table table-bordered" id="openPositionsTable">
                                                 <thead>
                                                     <tr>
+                                                        <th>ID</th>
+                                                        <th>Open Time</th>
                                                         <th>Symbol</th>
-                                                        <th>Position Type</th>
-                                                        <th>Volume</th>
-                                                        <th>Entry Price</th>
+                                                        <th>Lot Size</th>
+                                                        <th>Type</th>
+                                                        <th>Open Price</th>
                                                         <th>Current Price</th>
-                                                        <th>Open P&L</th>
+                                                        <th>Profit</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>EUR/USD</td>
-                                                        <td>Long</td>
-                                                        <td>1.5 lots</td>
-                                                        <td>1.1200</td>
-                                                        <td>1.1250</td>
-                                                        <td class="text-success">+$250</td>
-                                                        <td class="text-center"><button class="btn btn-danger" onclick="closePosition(this)">Close</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>GBP/JPY</td>
-                                                        <td>Short</td>
-                                                        <td>2 lots</td>
-                                                        <td>135.50</td>
-                                                        <td>134.80</td>
-                                                        <td class="text-danger">-$120</td>
-                                                        <td class="text-center"><button class="btn btn-danger" onclick="closePosition(this)">Close</button></td>
-                                                    </tr>
-                                                    <!-- Add more rows as needed -->
+                                                <tbody id="openPositionsTableBody">
+                                                    <!-- Table body will be dynamically populated here -->
                                                 </tbody>
                                             </table>
                                         </div>
@@ -460,7 +444,23 @@
                                     <div class="card-body">
                                         <!-- Make the table horizontally scrollable -->
                                         <div class="table-responsive" id="historyTableContainer">
-                                            
+                                            <table class="table table-bordered" id="historyTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Open Time</th>
+                                                        <th>Symbol</th>
+                                                        <th>Lot Size</th>
+                                                        <th>Type</th>
+                                                        <th>Open Price</th>
+                                                        <th>Closing Price</th>
+                                                        <th>Profit</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="historyTableBody">
+                                                    <!-- Table body will be dynamically populated here -->
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>

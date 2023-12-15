@@ -15,6 +15,9 @@ async function loadConfig() {
             cellCategory.colSpan = 3;
             cellCategory.textContent = category;
             cellCategory.classList.add("category-title");
+            cellCategory.classList.add("bg-primary");
+
+            
 
             // Add settings rows
             for (const setting in settings) {

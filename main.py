@@ -5,7 +5,7 @@ import json
 import os
 import sys
 import time
-
+from Bot import trading_bot
 class Load():
     def __init__(self) -> None:
         self.loading = True
@@ -31,6 +31,11 @@ def load_app():
 
 load_thread = threading.Thread(target=load_app)
 
+@eel.expose
+def get_config():
+    with open("config.json", "r") as file:
+        return json.load(file)
+
 class Logger():
     def __init__(self) -> None:
         self.commands = {
@@ -52,6 +57,7 @@ class Logger():
         while not loadObj.loading:
             user_input = input("\033[95mCommand:>\033[97m ")
             self.handle_command(user_input)
+
     
     def create_rapport(self, level=None, kind=None, msg=None, color=None, time=True):
         color_map = {
@@ -233,49 +239,7 @@ class Logger():
         self.cmd_quit(None)
                 
       
-class Bot():
-    def __init__(self) -> None:
-        self.status = {"running": False}
-    
-    def get_bot_status(self, arg=None):
-        status = self.status
-        if arg:
-            status = status[arg]
-        status = json.dumps(status)
-        return json.loads(status)
-    
-    def start_bot(self):
-        if not self.status["running"]:
-            self.status["running"] = True
-            rapport = Logger().create_rapport(
-                level=5, kind=6, msg="Try: start_bot() - Result: Bot started successfully", color="GREEN"
-            )
-            Logger()._print(rapport=rapport)
-            return True
-        else:
-            rapport = Logger().create_rapport(
-                level=5, kind=6, msg="Try: start_bot() - Result: Bot is already running", color="YELLOW"
-            )
-            Logger()._print(rapport=rapport)
-            return False
-    
-    def stop_bot(self):
-        if self.status["running"]:
-            self.status["running"] = False
-            rapport = Logger().create_rapport(
-                level=5, kind=6, msg="Try: stop_bot() - Result: Bot stopped successfully", color="RED"
-            )
-            Logger()._print(rapport=rapport)
-            return True
-        else:
-            rapport = Logger().create_rapport(
-                level=5, kind=6, msg="Try: stop_bot() - Result: Bot is not currently running", color="YELLOW"
-            )
-            Logger()._print(rapport=rapport)
-            return False
-    
-    
-bot = Bot()
+bot = trading_bot(logger=Logger())
 @eel.expose
 def start_bot():
     return bot.start_bot()
@@ -289,9 +253,16 @@ def get_bot_status(arg=None):
     return bot.get_bot_status(arg=arg)
 
 @eel.expose
-def get_config():
-    with open("config.json", "r") as file:
-        return json.load(file)
+def get_positions():
+    return bot.get_open_positions()
+
+@eel.expose
+def get_history(timeframe):
+    return bot.get_history(timeframe)
+
+@eel.expose
+def close_position(position_id, symbol, lot):
+    return bot.close_position(position_id, symbol, lot)
 
 @eel.expose
 def save_config(json_text):

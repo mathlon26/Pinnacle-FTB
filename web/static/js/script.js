@@ -7,3 +7,4 @@ async function botRunning() {
 
     return status;
 } 
+

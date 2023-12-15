@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade Deals</title>
+
+    <script type="text/javascript" src="/eel.js"></script>
+
+</head>
+<body>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Ticket</th>
+            <th>Order</th>
+            <th>Time</th>
+            <th>Type</th>
+            <th>Volume</th>
+            <th>Open Price</th>
+            <th>Price</th>
+            <th>Profit</th>
+            <th>Symbol</th>
+            <th>Comment</th>
+        </tr>
+    </thead>
+    <tbody id="tradeDealsBody"></tbody>
+</table>
+
+<script>
+    // Provided data
+    async function dealsData(t) {
+        let d = await eel.get_history(t)();
+        console.log(d);
+        return d;
+    }
+    // Function to create table rows
+    function createTableRow(deal) {
+        var row = document.createElement("tr");
+
+        var cells = ["ticket", "order", "time", "type", "volume", "open_price", "price", "profit", "symbol", "comment"];
+        cells.forEach(function (cell) {
+            var cellElement = document.createElement("td");
+            cellElement.textContent = deal[cell];
+            row.appendChild(cellElement);
+        });
+
+        return row;
+    }
+
+    // Function to find the open order based on position ID
+    function findOpenOrder(positionId, history) {
+        for (let i = 0; i < history.leng)
+    }
+
+    // Function to find the open price based on position ID
+    function findOpenPrice(positionId) {
+        var openOrder = dealsData.find(function (deal) {
+            return deal.position_id === positionId && deal.profit === 0;
+        });
+
+        return openOrder ? openOrder.open_price : null;
+    }
+
+    // Function to display trade deals in the table
+    async function displayTradeDeals() {
+        var tableBody = document.getElementById("tradeDealsBody");
+        dealsD = await dealsData(5);
+        dealsD.forEach(function (deal) {
+            // Display only deals with profit
+            if (deal.profit !== 0) {
+                var openPrice = findOpenPrice(deal.position_id);
+
+                if (openPrice !== null) {
+                    // Combine data from both deals
+                    var combinedData = { ...deal, open_price: openPrice };
+
+                    // Create and append a table row
+                    var row = createTableRow(combinedData);
+                    tableBody.appendChild(row);
+                }
+            }
+        });
+    }
+
+    // Call the function to display trade deals
+    displayTradeDeals();
+</script>
+
+</body>
+</html>
