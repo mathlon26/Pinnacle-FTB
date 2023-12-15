@@ -3,6 +3,7 @@ import threading
 from datetime import datetime
 import json
 import os
+import sys
 import time
 
 class Load():
@@ -21,6 +22,7 @@ def load_app():
             time.sleep(0.1)
             print(f"\033[97m [{j}{rapport}\033[95m{i}", end='\r', flush=True)
     else:
+        time.sleep(0.5)
         input_thread.start()
         input_thread.join()
         
@@ -41,6 +43,10 @@ class Logger():
             "trade": self.cmd_trade,
             "restart": self.cmd_restart
         }
+        self.config = get_config()["logger"]
+        self.enabled = self.config["enabled"]
+        self.log_path = self.config["log_path"]
+        
     def input_handler(self):
         os.system('cls')
         while not loadObj.loading:
@@ -131,18 +137,27 @@ class Logger():
             os.system('cls')
             print('\033[F', end='')
             print(f'\033[97m{rapport}')
-            #print("\033[95mCommand:>\033[97m ", end='', flush=True)
+            print('', end='', flush=True)
+            with open(self.log_path, "a") as file:
+                file.write(rapport)
         
         return
             
     def handle_command(self, command):
+            with open(self.log_path, "a") as file:
+                file.write(f"Command:> {command}")
             command_parts = command.split(" ")
             main_command = command_parts[0]
 
             if main_command in self.commands:
                 self.commands[main_command](command_parts[1:])
             else:
+                if command == '':
+                    main_command ="None given"
                 rapport = self.create_rapport(level=6, kind=6, msg=f"Unknown command: {main_command}", color="RED")
+                self._print(rapport=rapport)
+                time.sleep(2)
+                rapport = self.create_rapport(level=2, kind=0, msg=f'Try the "help" command to get started', color="WHITE")
                 self._print(rapport=rapport)
                         
     def cmd_quit(self, args):
@@ -150,7 +165,10 @@ class Logger():
             eel.stop_all()
             rapport = self.create_rapport(level=3, kind=6, msg="Exiting application...", color="RED")
             self._print(rapport=rapport, clear_first=True)
+            sys.exit()
             quit()
+            
+            
         else:
             rapport = self.create_rapport(level=0, kind=6, msg="Invalid arguments for quit command", color="RED")
             self._print(rapport=rapport)
@@ -214,17 +232,81 @@ class Logger():
         os.system(".\\restart_script.bat")
         self.cmd_quit(None)
                 
-        
+      
+class Bot():
+    def __init__(self) -> None:
+        self.status = {"running": False}
+    
+    def get_bot_status(self, arg=None):
+        status = self.status
+        if arg:
+            status = status[arg]
+        status = json.dumps(status)
+        return json.loads(status)
+    
+    def start_bot(self):
+        if not self.status["running"]:
+            self.status["running"] = True
+            rapport = Logger().create_rapport(
+                level=5, kind=6, msg="Try: start_bot() - Result: Bot started successfully", color="GREEN"
+            )
+            Logger()._print(rapport=rapport)
+            return True
+        else:
+            rapport = Logger().create_rapport(
+                level=5, kind=6, msg="Try: start_bot() - Result: Bot is already running", color="YELLOW"
+            )
+            Logger()._print(rapport=rapport)
+            return False
+    
+    def stop_bot(self):
+        if self.status["running"]:
+            self.status["running"] = False
+            rapport = Logger().create_rapport(
+                level=5, kind=6, msg="Try: stop_bot() - Result: Bot stopped successfully", color="RED"
+            )
+            Logger()._print(rapport=rapport)
+            return True
+        else:
+            rapport = Logger().create_rapport(
+                level=5, kind=6, msg="Try: stop_bot() - Result: Bot is not currently running", color="YELLOW"
+            )
+            Logger()._print(rapport=rapport)
+            return False
+    
+    
+bot = Bot()
+@eel.expose
+def start_bot():
+    return bot.start_bot()
+
+@eel.expose
+def stop_bot():
+    return bot.stop_bot()
+
+@eel.expose
+def get_bot_status(arg=None):
+    return bot.get_bot_status(arg=arg)
+
 @eel.expose
 def get_config():
     with open("config.json", "r") as file:
         return json.load(file)
+
+@eel.expose
+def save_config(json_text):
+    updated_config = json.loads(json_text)
+
+    with open("config.json", "w") as file:
+        json.dump(updated_config, file, indent=2)
+    
     
 @eel.expose
 def all_loaded():
     loadObj.loading = False
     time.sleep(1)
     Logger()._print(rapport=Logger().create_rapport(level=2, kind=0, msg="Loading complete", color="GREEN"))
+    print("\033[95mCommand:>\033[97m ", end='', flush=True)
     return bool(True) 
 
 

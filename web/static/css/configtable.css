@@ -1,0 +1,46 @@
+#configTableBody {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#configTableBody th, #configTableBody td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#configTableBody th {
+    background-color: #f2f2f2;
+}
+
+.category-title {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+#configTableBody {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.checkbox-cell {
+    text-align: center;
+}
+
+.editable-cell {
+    position: relative;
+}
+
+.editable-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4px;
+}
+
+.delete-item {
+
+    cursor: pointer;
+    color: red;
+    font-weight: bold;
+}
