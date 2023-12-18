@@ -436,9 +436,9 @@
                                     <div class="card-header py-3">
                                         <h6 class="m-0 font-weight-bold text-primary">Position History</h6>
                                         <div class="btn-group" id="timeframe">
-                                            <button id="tfBtn1" class="btn btn-primary active toggleTimeFrameC" onclick="toggleTimeframe('daily')">Daily</button>
-                                            <button id="tfBtn2" class="btn btn-primary toggleTimeFrameC" onclick="toggleTimeframe('monthly')">Monthly</button>
-                                            <button id="tfBtn3" class="btn btn-primary toggleTimeFrameC" onclick="toggleTimeframe('yearly')">Yearly</button>
+                                            <button id="tfBtn1" class="btn btn-primary active toggleTimeFrameCB" data-timeframe="daily" onclick="toggleTimeframe('daily')">Daily</button>
+                                            <button id="tfBtn2" class="btn btn-primary toggleTimeFrameCB" data-timeframe="monthly" onclick="toggleTimeframe('monthly')">Monthly</button>
+                                            <button id="tfBtn3" class="btn btn-primary toggleTimeFrameCB" data-timeframe="yearly" onclick="toggleTimeframe('yearly')">Yearly</button>
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -536,6 +536,8 @@
         <script src="/static/js/configtable.js"></script>
         <script src="/static/js/popup.js"></script>
         <script src="/static/js/bot.js"></script>
+        <script src="/static/js/notifications.js"></script>
+
 
         
         <script>

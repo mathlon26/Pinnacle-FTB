@@ -8,3 +8,6 @@ async function botRunning() {
     return status;
 } 
 
+function reload() {
+    location.reload();
+}
