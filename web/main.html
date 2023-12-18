@@ -336,7 +336,7 @@
                                     <div
                                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                         <h6 class="m-0 font-weight-bold text-primary">Growth</h6>
-                                        <div class="dropdown no-arrow">
+                                        <div class="dropdown no-arrow" id="timeframeDropdown">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -344,9 +344,9 @@
                                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                 aria-labelledby="dropdownMenuLink">
                                                 <div class="dropdown-header">Timeframe</div>
-                                                <a class="dropdown-item" onclick="toggleTimeframe('daily')" href="#history">Today</a>
-                                                <a class="dropdown-item" onclick="toggleTimeframe('monthly')" href="#history">Monthly</a>
-                                                <a class="dropdown-item" onclick="toggleTimeframe('yearly')" href="#history">Annual</a>
+                                                <a class="dropdown-item toggleTimeFrameC active" data-timeframe="daily" onclick="toggleTimeframe('daily')" href="#history">Today</a>
+                                                <a class="dropdown-item toggleTimeFrameC" data-timeframe="monthly" onclick="toggleTimeframe('monthly')" href="#history">Monthly</a>
+                                                <a class="dropdown-item toggleTimeFrameC" data-timeframe="yearly" onclick="toggleTimeframe('yearly')" href="#history">Annual</a>
                                             </div>
                                         </div>
                                     </div>
@@ -436,9 +436,9 @@
                                     <div class="card-header py-3">
                                         <h6 class="m-0 font-weight-bold text-primary">Position History</h6>
                                         <div class="btn-group" id="timeframe">
-                                            <button id="tfBtn1" class="btn btn-primary active" onclick="toggleTimeframe('daily')">Daily</button>
-                                            <button id="tfBtn2" class="btn btn-primary" onclick="toggleTimeframe('monthly')">Monthly</button>
-                                            <button id="tfBtn3" class="btn btn-primary" onclick="toggleTimeframe('yearly')">Yearly</button>
+                                            <button id="tfBtn1" class="btn btn-primary active toggleTimeFrameC" onclick="toggleTimeframe('daily')">Daily</button>
+                                            <button id="tfBtn2" class="btn btn-primary toggleTimeFrameC" onclick="toggleTimeframe('monthly')">Monthly</button>
+                                            <button id="tfBtn3" class="btn btn-primary toggleTimeFrameC" onclick="toggleTimeframe('yearly')">Yearly</button>
                                         </div>
                                     </div>
                                     <div class="card-body">
