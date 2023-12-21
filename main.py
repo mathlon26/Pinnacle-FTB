@@ -239,7 +239,7 @@ class Logger():
         self.cmd_quit(None)
                 
       
-bot = trading_bot(logger=Logger())
+bot = trading_bot(logger=Logger(), auth=["77640934","YqHpZ+5u", "MetaQuotes-Demo"], timezone_offset=1)
 @eel.expose
 def start_bot():
     return bot.start_bot()
@@ -259,6 +259,10 @@ def get_positions():
 @eel.expose
 def get_history(timeframe):
     return bot.get_history(timeframe)
+
+@eel.expose
+def get_account_financials():
+    return bot.get_financials()
 
 @eel.expose
 def close_position(position_id, symbol, lot):

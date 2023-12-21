@@ -29,6 +29,7 @@
     "trade_comment": "Pinnacle-FTB execution"
   },
   "account": {
-    "demo": true
+    "demo": true,
+    "monthly-goal": "1000"
   }
 }

@@ -45,7 +45,7 @@
     
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">
+                    <a class="nav-link" onclick="reload()" style="cursor: pointer;">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span></a>
                 </li>
@@ -232,7 +232,7 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
                                                     Earnings (D)</div>
-                                                <div id="daily-earnings" class="h5 mb-0 font-weight-bold text-gray-800">...%</div>
+                                                <div id="daily-earnings" class="h5 mb-0 font-weight-bold">...%</div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -249,7 +249,7 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                     Earnings (M)</div>
-                                                <div id="monthly-earnings" class="h5 mb-0 font-weight-bold text-gray-800">...%</div>
+                                                <div id="monthly-earnings" class="h5 mb-0 font-weight-bold">...%</div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -267,7 +267,7 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                     Earnings (Y)</div>
-                                                <div id="yearly-earnings" class="h5 mb-0 font-weight-bold text-gray-800">...%</div>
+                                                <div id="yearly-earnings" class="h5 mb-0 font-weight-bold">...%</div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -287,12 +287,12 @@
                                                 </div>
                                                 <div class="row no-gutters align-items-center">
                                                     <div class="col-auto">
-                                                        <div id="currentEq" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">$...</div>
+                                                        <div id="current-equity" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">$...</div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="progress progress-sm mr-2">
                                                             <div id="equityProgress" class="progress-bar bg-info" role="progressbar"
-                                                                style="width: 50%" aria-valuenow="0" aria-valuemin="0"
+                                                                style="width: 0%" aria-valuenow="0" aria-valuemin="0"
                                                                 aria-valuemax="100"></div>
                                                         </div>
                                                     </div>
@@ -314,7 +314,7 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                     Open Positions</div>
-                                                <div id="posTotal" class="h5 mb-0 font-weight-bold text-gray-800">...</div>
+                                                <div id="total-positions" class="h5 mb-0 font-weight-bold text-gray-800">...</div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="fas fa-hashtag fa-2x text-gray-300"></i>
@@ -344,9 +344,9 @@
                                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                 aria-labelledby="dropdownMenuLink">
                                                 <div class="dropdown-header">Timeframe</div>
-                                                <a class="dropdown-item toggleTimeFrameC active" data-timeframe="daily" onclick="toggleTimeframe('daily')" href="#history">Today</a>
-                                                <a class="dropdown-item toggleTimeFrameC" data-timeframe="monthly" onclick="toggleTimeframe('monthly')" href="#history">Monthly</a>
-                                                <a class="dropdown-item toggleTimeFrameC" data-timeframe="yearly" onclick="toggleTimeframe('yearly')" href="#history">Annual</a>
+                                                <a class="dropdown-item toggleTimeFrameC active" data-timeframe="daily" onclick="toggleTimeframe('daily')" href="#">Today</a>
+                                                <a class="dropdown-item toggleTimeFrameC" data-timeframe="monthly" onclick="toggleTimeframe('monthly')" href="#">Monthly</a>
+                                                <a class="dropdown-item toggleTimeFrameC" data-timeframe="yearly" onclick="toggleTimeframe('yearly')" href="#">Annual</a>
                                             </div>
                                         </div>
                                     </div>
@@ -531,12 +531,16 @@
         <script src="/static/vendor/chart.js/Chart.min.js"></script>
     
         <!-- Page level custom scripts -->
+        <script src="/static/js/summary.js"></script>
         <script src="/static/js/demo/chart-area-demo.js"></script>
         <script src="/static/js/demo/chart-pie-demo.js"></script>
         <script src="/static/js/configtable.js"></script>
         <script src="/static/js/popup.js"></script>
         <script src="/static/js/bot.js"></script>
         <script src="/static/js/notifications.js"></script>
+        <script src="/static/js/tables.js"></script>
+
+
 
 
         

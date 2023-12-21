@@ -3,9 +3,13 @@ import MetaTrader5 as mt5
 from datetime import datetime, timedelta
 
 class trading_bot():
-    def __init__(self, logger) -> None:
+    def __init__(self, logger, auth, timezone_offset) -> None:
         self.Logger = logger
         self.status = {"running": False}
+        self.login = auth[0]
+        self.password = auth[1]
+        self.server = auth[2]
+        self.timezone_offset = timezone_offset
     
     def get_bot_status(self, arg=None):
         status = self.status
@@ -50,7 +54,7 @@ class trading_bot():
 
         if mt5.initialize():
             try:
-                mt5.login("5020910256", password="0hQzNdX*", server="MetaQuotes-Demo")
+                mt5.login(self.login, self.password, self.server)
                 # Retrieve open positions
                 positions = mt5.positions_get()
                 
@@ -92,10 +96,10 @@ class trading_bot():
         past_positions = []
         date_to = datetime.now()  # current date and time
         date_from = date_to - timedelta(days=timeframe)  # timeframe is in days
-
+        date_to = date_to + timedelta(hours=self.timezone_offset)
         try:
             mt5.initialize()
-            mt5.login("5020910256", password="0hQzNdX*", server="MetaQuotes-Demo")
+            mt5.login(self.login, self.password, self.server)
             # Retrieve open positions
             _past_positions = mt5.history_deals_get(date_from, date_to)
             
@@ -126,7 +130,29 @@ class trading_bot():
         }
         """
         
+    def get_financials(self):
+        mt5.initialize()
+        accountinfo = mt5.account_info()
         
+        tfs = [1,30,365]
+        date_to = datetime.now()  # current date and time
+        profit = {}
+        start = {}
+        for tf in tfs:
+            positions = self.get_history(tf)
+            profits = 0
+            for position in positions:
+                if position["symbol"] != '' and position["lotsize"] != 0.0:
+                    profits += float(position["profit"])
+                else:
+                    start[tf] = position["profit"]
+            profit[tf] = profits
+        
+        
+        
+        return {"balance": accountinfo.balance ,"equity": accountinfo.equity, "margin": accountinfo.margin_free, "currency": accountinfo.currency, "profit": profit, "initial-balance": start}
+    
+    
     def close_position(self, position_id, symbol, lot):
         try:
             mt5.initialize()
