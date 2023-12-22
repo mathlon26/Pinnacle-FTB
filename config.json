@@ -5,31 +5,36 @@
   },
   "risk_management": {
     "leverage": "1:500",
-    "slippage": "0.5%",
+    "max_spread": "5",
     "risk": "2%",
-    "stoploss": "20",
-    "takeprofit": "60",
+    "stoploss": "40",
+    "takeprofit": "120",
     "max_positions": "5",
-    "trailing_stop": "10"
+    "lot_size": "0.1"
   },
   "trading": {
     "timeframes": [
       "D",
       "4H",
       "1H",
-      "15M"
+      "5m"
     ],
     "symbols": [
       "EURUSD",
       "GBPUSD",
       "GBPJPY",
-      "XAUUSD"
+      "XAUUSD",
+      "USDCHF",
+      "NZDUSD",
+      "EURGBP",
+      "EURJPY",
+      "USDCAD"
     ],
     "order_offset": "market",
     "trade_comment": "Pinnacle-FTB execution"
   },
   "account": {
     "demo": true,
-    "monthly-goal": "1000"
+    "monthly-goal": "10000"
   }
 }

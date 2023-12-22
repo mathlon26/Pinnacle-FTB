@@ -69,6 +69,9 @@ async function setOpenPositionsTable() {
                 let normalTimestamp = new Date(unixTimestamp * 1000).toISOString().substr(0, 19);;
                 cellElement.textContent = normalTimestamp.replace("T", " ");
             }
+            else if (cell == "profit") {
+                cellElement.textContent = position[cell].toFixed(2);
+            }
              else {
                 cellElement.textContent = position[cell];
             }
@@ -136,7 +139,7 @@ async function setHistoryTable(time) {
 
                 // Special handling for the "profit" cell to set text color
                 if (cell === "profit") {
-                    cellElement.textContent = position[cell];
+                    cellElement.textContent = position[cell].toFixed(2);
                     cellElement.classList.add(position[cell] < 0 ? "text-danger" : "text-success");
                 } else {
                     cellElement.textContent = position[cell];

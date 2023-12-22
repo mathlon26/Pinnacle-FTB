@@ -17,6 +17,7 @@ async function startBot() {
 }
 
 // Function to stop the bot
+eel.expose(stopBot);
 async function stopBot() {
     let goodToGo = await eel.stop_bot()();
     if (goodToGo){

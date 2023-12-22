@@ -36,8 +36,8 @@
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-                    <div class="sidebar-brand-text mx-3">Pinnacle <sup>v1.0.0</sup></div>
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" onclick="reload()" style="cursor: pointer;">
+                    <div class="sidebar-brand-text mx-3">Pinnacle <sup>v1.0.1</sup></div>
                 </a>
     
                 <!-- Divider -->
@@ -153,7 +153,7 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-bell fa-fw"></i>
                                     <!-- Counter - Alerts -->
-                                    <span class="badge badge-danger badge-counter" id="alertCount"></span>
+                                    <span class="badge badge-danger badge-counter" id="alertCount">0</span>
                                 </a>
                                 <!-- Dropdown - Alerts -->
                                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -190,15 +190,12 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                     aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Bot
-                                    </a>
-                                    <a class="dropdown-item" href="#">
+                                    
+                                    <a class="dropdown-item" href="#settings">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="#" onclick="openLog()">
                                         <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Activity Log
                                     </a>
@@ -344,16 +341,18 @@
                                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                 aria-labelledby="dropdownMenuLink">
                                                 <div class="dropdown-header">Timeframe</div>
-                                                <a class="dropdown-item toggleTimeFrameC active" data-timeframe="daily" onclick="toggleTimeframe('daily')" href="#">Today</a>
-                                                <a class="dropdown-item toggleTimeFrameC" data-timeframe="monthly" onclick="toggleTimeframe('monthly')" href="#">Monthly</a>
-                                                <a class="dropdown-item toggleTimeFrameC" data-timeframe="yearly" onclick="toggleTimeframe('yearly')" href="#">Annual</a>
+                                                <a class="dropdown-item toggleTimeFrameC active" data-timeframe="daily" onclick="toggleChartTimeframe('daily')" href="#">Daily</a>
+                                                <a class="dropdown-item toggleTimeFrameC" data-timeframe="monthly" onclick="toggleChartTimeframe('monthly')" href="#">Monthly</a>
+                                                <a class="dropdown-item toggleTimeFrameC" data-timeframe="yearly" onclick="toggleChartTimeframe('yearly')" href="#">Annual</a>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- Card Body -->
                                     <div class="card-body">
                                         <div class="chart-area">
-                                            <canvas id="BalanceChart"></canvas>
+                                            <canvas id="BalanceChartD"></canvas>
+                                            <canvas id="BalanceChartM"></canvas>
+                                            <canvas id="BalanceChartY"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -539,14 +538,22 @@
         <script src="/static/js/bot.js"></script>
         <script src="/static/js/notifications.js"></script>
         <script src="/static/js/tables.js"></script>
+        <script src="/static/js/log.js"></script>
+
 
 
 
 
         
         <script>
-            loadConfig();
-            console.log("All loaded response: " + eel.all_loaded());
+            async function load() {
+                await loadConfig();
+                await loadCharts();
+
+                response = await eel.all_loaded()();
+                console.log("All is loaded: " + response);
+            }
+            load();
         </script>
     </body>
 </html>

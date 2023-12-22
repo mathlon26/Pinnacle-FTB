@@ -1,7 +1,5 @@
 async function loadConfig() {
-    console.log("loading config");
     let config = await eel.get_config()();
-    console.log(config);
     
     const tableBody = document.getElementById("configTableBody");
 
@@ -138,13 +136,13 @@ async function loadConfig() {
 async function saveConfig() {
     let isBotRunning = await botRunning();
     if (!isBotRunning) {
-        console.log('saving config');
         // Collect data from the table and format it into a JavaScript object
         const updatedConfig = collectConfigData();
     
         const jsonText = JSON.stringify(updatedConfig);
     
         eel.save_config(jsonText)();
+        msgBox("Config Saved!");
     }
     else
     {

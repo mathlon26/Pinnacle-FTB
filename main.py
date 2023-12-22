@@ -76,6 +76,7 @@ class Logger():
             "MAIN": "CYAN",
             "SERVER": "YELLOW",
             "APP": "MAGENTA",
+            "BOT": "CYAN",
             "?": "WHITE"
         }
 
@@ -86,7 +87,8 @@ class Logger():
             3: "MAIN",
             4: "SERVER",
             5: "APP",
-            6: "ERROR"
+            6: "ERROR",
+            7: "BOT"
         }
         kind_map = {
             0: "?",
@@ -233,13 +235,14 @@ class Logger():
     def cmd_restart(self, args):
         # Implement the functionality for the "restart" command
         rapport = self.create_rapport(level=2, kind=6, msg="Restarting application...", color="YELLOW")
+        
         self._print(rapport=rapport, clear_first=True)
         
         os.system(".\\restart_script.bat")
         self.cmd_quit(None)
                 
       
-bot = trading_bot(logger=Logger(), auth=["77640934","YqHpZ+5u", "MetaQuotes-Demo"], timezone_offset=1)
+bot = trading_bot(logger=Logger(), auth=["9999027354","Qf!m4jYb", "MetaQuotes-Demo"], timezone_offset=6, tick=0.1, all_symbols=True)
 @eel.expose
 def start_bot():
     return bot.start_bot()
@@ -263,6 +266,10 @@ def get_history(timeframe):
 @eel.expose
 def get_account_financials():
     return bot.get_financials()
+
+@eel.expose
+def get_log():
+    os.system("start notepad "+ Logger().log_path)
 
 @eel.expose
 def close_position(position_id, symbol, lot):

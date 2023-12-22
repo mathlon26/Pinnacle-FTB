@@ -39,10 +39,10 @@ async function updateDailyEarnings() {
         dailyEarnings.innerText = `${percentage}%`;
 
         if (percentage > 0) {
-            dailyEarnings.classList.add("text-succes");
+            dailyEarnings.classList.add("text-success");
             dailyEarnings.classList.remove("text-danger");
         }else{
-            dailyEarnings.classList.remove("text-succes");
+            dailyEarnings.classList.remove("text-success");
             dailyEarnings.classList.add("text-danger");
         }
     }
@@ -61,10 +61,10 @@ async function updateMonthlyEarnings() {
         monthlyEarnings.innerText = `${percentage}%`;
 
         if (percentage > 0) {
-            monthlyEarnings.classList.add("text-succes");
+            monthlyEarnings.classList.add("text-success");
             monthlyEarnings.classList.remove("text-danger");
         }else{
-            monthlyEarnings.classList.remove("text-succes");
+            monthlyEarnings.classList.remove("text-success");
             monthlyEarnings.classList.add("text-danger");
         }
     }
@@ -83,10 +83,10 @@ async function updateYearlyEarnings() {
         yearlyEarnings.innerText = `${percentage}%`;
 
         if (percentage > 0) {
-            yearlyEarnings.classList.add("text-succes");
+            yearlyEarnings.classList.add("text-success");
             yearlyEarnings.classList.remove("text-danger");
         }else{
-            yearlyEarnings.classList.remove("text-succes");
+            yearlyEarnings.classList.remove("text-success");
             yearlyEarnings.classList.add("text-danger");
         }
     }
